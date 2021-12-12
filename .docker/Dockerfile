@@ -1,4 +1,4 @@
-FROM openjdk:11 as build
+FROM eclipse-temurin:11-alpine as build
 WORKDIR /workspace/app
 COPY ../mvnw .
 COPY ../.mvn .mvn
@@ -6,7 +6,7 @@ COPY ../pom.xml .
 COPY ../src src
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-FROM openjdk:11
+FROM eclipse-temurin:11-alpine
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
