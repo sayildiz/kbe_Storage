@@ -2,11 +2,8 @@ package com.sayildiz.kbe_storage.product_api.model;
 
 import com.opencsv.bean.CsvBindByName;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 import java.util.UUID;
