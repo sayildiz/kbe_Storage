@@ -9,3 +9,8 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - 5432:5432
+  sftp:
+    image: atmoz/sftp
+    ports:
+      - "22:22"
+    command: foo:pass:::upload

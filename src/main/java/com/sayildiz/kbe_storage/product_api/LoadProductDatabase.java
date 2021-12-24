@@ -13,14 +13,15 @@ import java.io.FileReader;
 import java.util.List;
 
 @Configuration
-public class LoadDatabase {
-    private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+public class LoadProductDatabase {
+    private static final Logger log = LoggerFactory.getLogger(LoadProductDatabase.class);
+    private final String resourcesFolder = "./src/main/resources";
     @Bean
     CommandLineRunner initDatabase(ProductInfoRepository repository){
         return args -> {
-            List<ProductInfo> beans = new CsvToBeanBuilder<ProductInfo>(new FileReader("./src/main/resources/AllData.csv"))
+            List<ProductInfo> beans = new CsvToBeanBuilder<ProductInfo>(new FileReader(resourcesFolder + "/StorageData.csv"))
                     .withType(ProductInfo.class).build().parse();
-            beans.forEach(x -> log.info("loading ProductInfos" + repository.save(x)));
+            beans.forEach(x -> log.info("loading ProductInfos for Product API " + repository.save(x)));
         };
     }
 }

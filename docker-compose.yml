@@ -24,3 +24,10 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+
+  sftp-storage:
+    image: 'atmoz/sftp'
+    container_name: sftp
+    ports:
+      - '22:22'
+    command: foo:pass:::upload
