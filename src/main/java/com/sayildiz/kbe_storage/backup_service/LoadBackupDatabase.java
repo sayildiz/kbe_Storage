@@ -1,6 +1,7 @@
 package com.sayildiz.kbe_storage.backup_service;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.sayildiz.kbe_storage.backup_service.file_transfer.FileTransferService;
 import com.sayildiz.kbe_storage.backup_service.model.Product;
 import com.sayildiz.kbe_storage.backup_service.repository.ProductRepository;
 import com.sayildiz.kbe_storage.product_api.LoadProductDatabase;
@@ -27,12 +28,8 @@ public class LoadBackupDatabase {
         return args -> {
 
             logger.info("Start download file");
-            boolean isDownloaded = fileTransferService.downloadFile(resourcesFolder+"/AllData.csv", "/upload/AllData.csv");
-            logger.info("Download result: " + isDownloaded);
-            if(!isDownloaded){
-                logger.error("AllData.csv could not be downloaded from SFTP Server");
-            }
 
+            fileTransferService.downloadFile(resourcesFolder+"/AllData.csv", "/upload/AllData.csv");
 
             List<Product> beans = new CsvToBeanBuilder<Product>(new FileReader(resourcesFolder + "/AllData.csv"))
                     .withType(Product.class).build().parse();
