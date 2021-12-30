@@ -26,15 +26,8 @@ public class Sftp_Service implements FileTransferService {
     @Value("${sftp.password}")
     private String password;
 
-    @Value("${sftp.sessionTimeout}")
-    private Integer sessionTimeout;
-
-    @Value("${sftp.channelTimeout}")
-    private Integer channelTimeout;
-
     @Override
     public void uploadFile(String localFilePath, String remoteFilePath) throws IOException {
-        logger.debug(host);
         SSHClient sshClient = setupSshj();
         try {
             SFTPClient sftpClient = sshClient.newSFTPClient();
@@ -53,7 +46,6 @@ public class Sftp_Service implements FileTransferService {
     }
 
     public void downloadFile(String localFilePath, String remoteFilePath) throws IOException {
-        logger.debug(host);
         SSHClient sshClient = setupSshj();
         try {
             SFTPClient sftpClient = sshClient.newSFTPClient();
@@ -65,6 +57,7 @@ public class Sftp_Service implements FileTransferService {
             }
 
         } catch (IOException e) {
+
             e.printStackTrace();
         } finally {
             sshClient.disconnect();
@@ -77,7 +70,7 @@ public class Sftp_Service implements FileTransferService {
     private SSHClient setupSshj() throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new PromiscuousVerifier());
-        client.connect(host);
+        client.connect(host, port);
         client.authPassword(username, password);
         return client;
     }

@@ -8,19 +8,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
 @Configuration
 public class LoadProductDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadProductDatabase.class);
-    private final String resourcesFolder = "./src/main/resources";
+    private File csvFileStorageData;
+    {
+        try {
+            csvFileStorageData = ResourceUtils.getFile("classpath:StorageData.csv");
+        } catch (FileNotFoundException e) {
+            log.error("Could not load StorageData.csv");
+            e.printStackTrace();
+        }
+    }
+
     @Bean
     CommandLineRunner initDatabase(ProductInfoRepository repository){
         return args -> {
-            List<ProductInfo> beans = new CsvToBeanBuilder<ProductInfo>(new FileReader(resourcesFolder + "/StorageData.csv"))
-                    .withType(ProductInfo.class).build().parse();
+            List<ProductInfo> beans = new CsvToBeanBuilder<ProductInfo>(new FileReader(csvFileStorageData))
+                   .withType(ProductInfo.class).build().parse();
             beans.forEach(x -> log.info("loading ProductInfos for Product API " + repository.save(x)));
         };
     }
