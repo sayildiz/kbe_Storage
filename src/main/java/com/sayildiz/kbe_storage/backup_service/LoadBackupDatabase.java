@@ -8,33 +8,37 @@ import com.sayildiz.kbe_storage.product_api.LoadProductDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-@Configuration
+@Component
 public class LoadBackupDatabase {
     private static final Logger logger = LoggerFactory.getLogger(LoadProductDatabase.class);
-    private final String csvPathAllData = "classpath:AllData.csv";
+    private final String csvPathAllData = System.getProperty("java.io.tmpdir") + "AllData.csv";
 
     @Autowired
     private FileTransferService fileTransferService;
 
-    @Bean
-    CommandLineRunner initBackupDatabase(ProductRepository repository){
-        return args -> {
+    @Autowired
+    private ProductRepository repository;
+
+    @Scheduled(fixedDelay = 3600, timeUnit = TimeUnit.SECONDS)
+    public void initBackupDatabase(){
             logger.info("Start download file");
-
-            fileTransferService.downloadFile(csvPathAllData, "/upload/AllData.csv");
-
-            List<Product> beans = new CsvToBeanBuilder<Product>(new FileReader(csvPathAllData))
-                    .withType(Product.class).build().parse();
-            beans.forEach(x -> logger.info("loading Product for BackupService " + repository.save(x)));
-
-
-        };
+        try {
+            if(fileTransferService.downloadFile(csvPathAllData, "/upload/AllData.csv")) {
+                List<Product> beans = new CsvToBeanBuilder<Product>(new FileReader(csvPathAllData))
+                        .withType(Product.class).build().parse();
+                beans.forEach(x -> logger.info("loading Product for BackupService " + repository.save(x)));
+            }else{
+                logger.error("Could not load AllData.csv from SFTP Service");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

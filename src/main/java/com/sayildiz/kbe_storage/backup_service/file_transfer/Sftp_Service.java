@@ -27,38 +27,42 @@ public class Sftp_Service implements FileTransferService {
     private String password;
 
     @Override
-    public void uploadFile(String localFilePath, String remoteFilePath) throws IOException {
+    public boolean uploadFile(String localFilePath, String remoteFilePath) throws IOException {
         SSHClient sshClient = setupSshj();
         try {
             SFTPClient sftpClient = sshClient.newSFTPClient();
 
             try {
                 sftpClient.put(localFilePath, remoteFilePath);
+                return true;
             } finally {
                 sftpClient.close();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } finally {
             sshClient.disconnect();
         }
     }
 
-    public void downloadFile(String localFilePath, String remoteFilePath) throws IOException {
+    public boolean downloadFile(String localFilePath, String remoteFilePath) throws IOException {
         SSHClient sshClient = setupSshj();
         try {
             SFTPClient sftpClient = sshClient.newSFTPClient();
 
             try {
                 sftpClient.get(remoteFilePath, localFilePath);
+                return true;
             } finally {
                 sftpClient.close();
             }
 
         } catch (IOException e) {
-
+            logger.error("Error while downloading file");
             e.printStackTrace();
+            return false;
         } finally {
             sshClient.disconnect();
         }
