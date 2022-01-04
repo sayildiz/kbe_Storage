@@ -8,4 +8,11 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
-      - 5432:5432
+      - "5432:5432"
+  sftp:
+    image: atmoz/sftp
+    volumes:
+      - .docker/upload:/home/foo/upload
+    ports:
+      - "10022:22"
+    command: foo:pass:::upload

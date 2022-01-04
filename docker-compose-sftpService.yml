@@ -1,0 +1,5 @@
+sftp:
+  image: atmoz/sftp
+  ports:
+    - "10022:22"
+  command: foo:pass:1001

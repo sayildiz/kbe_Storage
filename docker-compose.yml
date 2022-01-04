@@ -8,19 +8,34 @@ services:
       context: .
       dockerfile: .docker/Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db/
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - sftp.host=sftp
+      - sftp.port=22
+      - sftp.username=foo
+      - sftp.password=pass
+      - sftp.sessionTimeout=15000
+      - sftp.channelTimeout=15000
     volumes:
       - ./:/app/app
   db:
     image: 'postgres'
     container_name: db
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+
+  sftp:
+    image: 'atmoz/sftp'
+    container_name: sftp
+    volumes:
+      - .docker/upload:/home/foo/upload
+    ports:
+      - "10022:22"
+    command: foo:pass:::upload
