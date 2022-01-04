@@ -1,7 +1,7 @@
-package com.sayildiz.kbe_storage.product_api.controller;
+package com.sayildiz.kbe_storage.productinfo_api.controller;
 
-import com.sayildiz.kbe_storage.product_api.model.ProductInfo;
-import com.sayildiz.kbe_storage.product_api.service.ProductInfoService;
+import com.sayildiz.kbe_storage.productinfo_api.model.ProductInfo;
+import com.sayildiz.kbe_storage.productinfo_api.service.ProductInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

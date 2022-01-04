@@ -1,8 +1,8 @@
-package com.sayildiz.kbe_storage.product_api;
+package com.sayildiz.kbe_storage.productinfo_api;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.sayildiz.kbe_storage.product_api.model.ProductInfo;
-import com.sayildiz.kbe_storage.product_api.repository.ProductInfoRepository;
+import com.sayildiz.kbe_storage.productinfo_api.model.ProductInfo;
+import com.sayildiz.kbe_storage.productinfo_api.repository.ProductInfoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

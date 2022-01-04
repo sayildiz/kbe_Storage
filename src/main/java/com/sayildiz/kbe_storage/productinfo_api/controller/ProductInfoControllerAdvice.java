@@ -1,6 +1,6 @@
-package com.sayildiz.kbe_storage.product_api.controller;
+package com.sayildiz.kbe_storage.productinfo_api.controller;
 
-import com.sayildiz.kbe_storage.product_api.exception.ProductInfoNotFoundException;
+import com.sayildiz.kbe_storage.productinfo_api.exception.ProductInfoNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.sayildiz.kbe_storage.product_api.exception;
+package com.sayildiz.kbe_storage.productinfo_api.exception;
 
 import java.util.UUID;
 

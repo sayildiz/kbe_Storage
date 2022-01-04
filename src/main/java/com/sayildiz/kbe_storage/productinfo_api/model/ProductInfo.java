@@ -1,4 +1,4 @@
-package com.sayildiz.kbe_storage.product_api.model;
+package com.sayildiz.kbe_storage.productinfo_api.model;
 
 import com.opencsv.bean.CsvBindByName;
 import com.sun.istack.NotNull;

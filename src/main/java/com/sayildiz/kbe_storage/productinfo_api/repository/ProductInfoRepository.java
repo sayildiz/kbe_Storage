@@ -1,6 +1,6 @@
-package com.sayildiz.kbe_storage.product_api.repository;
+package com.sayildiz.kbe_storage.productinfo_api.repository;
 
-import com.sayildiz.kbe_storage.product_api.model.ProductInfo;
+import com.sayildiz.kbe_storage.productinfo_api.model.ProductInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

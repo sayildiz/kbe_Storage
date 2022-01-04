@@ -1,8 +1,8 @@
-package com.sayildiz.kbe_storage.product_api.service;
+package com.sayildiz.kbe_storage.productinfo_api.service;
 
-import com.sayildiz.kbe_storage.product_api.exception.ProductInfoNotFoundException;
-import com.sayildiz.kbe_storage.product_api.model.ProductInfo;
-import com.sayildiz.kbe_storage.product_api.repository.ProductInfoRepository;
+import com.sayildiz.kbe_storage.productinfo_api.exception.ProductInfoNotFoundException;
+import com.sayildiz.kbe_storage.productinfo_api.model.ProductInfo;
+import com.sayildiz.kbe_storage.productinfo_api.repository.ProductInfoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
