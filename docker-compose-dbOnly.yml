@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  db:
+  db_storage:
     image: 'postgres'
     container_name: db
     environment:

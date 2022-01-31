@@ -1,16 +1,17 @@
 version: "3.9"
 
 services:
-  app:
-    container_name: SpringBootApp
+  storage:
+    container_name: storage
     command: java -jar target/demo-0.0.1-SNAPSHOT.jar
     build:
       context: .
       dockerfile: .docker/Dockerfile
     ports:
-      - "8080:8080"
+      - "56666:56666"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db/
+      - server.port=56666
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_storage/
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -22,11 +23,11 @@ services:
       - sftp.channelTimeout=15000
     volumes:
       - ./:/app/app
-  db:
+  db_storage:
     image: 'postgres'
-    container_name: db
+    container_name: db_storage
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -39,3 +40,8 @@ services:
     ports:
       - "10022:22"
     command: foo:pass:::upload
+
+networks:
+  default:
+    external:
+      name: myNetwork
