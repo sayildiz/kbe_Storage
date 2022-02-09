@@ -2,16 +2,16 @@ package com.sayildiz.kbe_storage.backup_service.model;
 
 
 import com.opencsv.bean.CsvBindByName;
-import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Product {
+public class ProductDetails {
     @Id
     //@GeneratedValue(generator = "uuid")
     //@GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
@@ -41,7 +41,7 @@ public class Product {
     @CsvBindByName
     private int deliveryTime;
 
-    public Product(UUID uuid, BigDecimal price, String name, String description, String location, int amount, int deliveryTime) {
+    public ProductDetails(UUID uuid, BigDecimal price, String name, String description, String location, int amount, int deliveryTime) {
         this.uuid = uuid;
         this.price = price;
         this.name = name;
@@ -50,7 +50,7 @@ public class Product {
         this.amount = amount;
         this.deliveryTime = deliveryTime;
     }
-    public Product() {
+    public ProductDetails() {
 
     }
 
@@ -114,8 +114,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return amount == product.amount && deliveryTime == product.deliveryTime && Objects.equals(uuid, product.uuid) && Objects.equals(price, product.price) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(location, product.location);
+        ProductDetails productDetails = (ProductDetails) o;
+        return amount == productDetails.amount && deliveryTime == productDetails.deliveryTime && Objects.equals(uuid, productDetails.uuid) && Objects.equals(price, productDetails.price) && Objects.equals(name, productDetails.name) && Objects.equals(description, productDetails.description) && Objects.equals(location, productDetails.location);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.sayildiz.kbe_storage.backup_service;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.sayildiz.kbe_storage.backup_service.file_transfer.FileTransferService;
-import com.sayildiz.kbe_storage.backup_service.model.Product;
+import com.sayildiz.kbe_storage.backup_service.model.ProductDetails;
 import com.sayildiz.kbe_storage.backup_service.repository.ProductRepository;
 import com.sayildiz.kbe_storage.productinfo_api.LoadProductDatabase;
 import org.slf4j.Logger;
@@ -31,8 +31,8 @@ public class LoadBackupDatabase {
             logger.info("Start download file");
         try {
             if(fileTransferService.downloadFile(csvPathAllData, "/upload/AllData.csv")) {
-                List<Product> beans = new CsvToBeanBuilder<Product>(new FileReader(csvPathAllData))
-                        .withType(Product.class).build().parse();
+                List<ProductDetails> beans = new CsvToBeanBuilder<ProductDetails>(new FileReader(csvPathAllData))
+                        .withType(ProductDetails.class).build().parse();
                 beans.forEach(x -> logger.info("loading Product for BackupService " + repository.save(x)));
             }else{
                 logger.error("Could not load AllData.csv from SFTP Service");
